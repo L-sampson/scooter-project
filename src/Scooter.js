@@ -16,17 +16,16 @@ class Scooter extends User{
     if(this.charge < 20 || this.isBroken === true){
       throw new Error("Scooter needs to charge or scooter needs repair");
     }
-    this.user = user;
-    this.station = null;
-    this.serial = serial;
-    //remove scooter from station list by serial number.
-    //Check out to user
+    this.user = user;//Check out to user
+    this.station = null;//remove scooter from station list 
+    this.serial = serial;//by serial number.
+    
+    
   }
 
   dock(station){
-    this.user = null;
-    //push scooter back into station object
-    this.station = station;
+    this.user = null;//checks out user
+    this.station = station;//push scooter back into station object
   }
 }
 
