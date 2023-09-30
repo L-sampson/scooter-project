@@ -1,73 +1,88 @@
 const User = require('./User')
 const Scooter = require('./Scooter')
 
-class ScooterApp extends User {
+class ScooterApp  {
   // ScooterApp code here
   constructor(){
-const stations ={
+//Use this. to reference the Scooter App object. 
+    this.stations ={
   "Inner Harbor" : [],
   "Fells Point" : [], 
   "Camden Yards" : [], 
   "Federal Hill" : []
 }
-const registeredUsers ={};
+this.registeredUsers ={};
   }
   
   registerUsers(username, password, age){
-    
+    if(!this.registeredUsers[username] && age>= 18){//Registers users that are not in the list and over 18.
+      this.registeredUsers[username] ={//Adds username to empty array. 
+        password: password, 
+        age: age
+      }
+      console.log("User has been registerd");
+      return this.registeredUsers[username];
+    }
+    throw new Error("Already registered or to young to register");
   }
 
   
   loginUser(username, password){
-    if(this.registeredUsers[username]){
-      login()
-      this.loggedIn = true;
-      console.log("User has been logged in");
+    if(!this.registeredUsers[username]||!password){//If username is not in the array or wrong password
+      throw new Error("Username or password is incorrect");
     }
-    else if(!this.registeredUsers[username] ||!this.registeredUsers[password]){
-      console.log("Username or password is incorrect")
-    }
+    const user = new User(username, password, age);//new instance of user from User class. 
+    user.login(password);//Calls user methods with password parameter. 
+    console.log("User has been logged in");
   }
 
   logoutUser(username){
-    if(this.registeredUsers[username]){
-      login()
-      this.loggedIn = false;
-      console.log("User is logged out");
+    if(!this.registeredUsers[username]){//Checks if user is already logged. 
+      throw new Error("No such user is logged.")
     }
-    throw new Error("No such user is logged in.");
+    user.logout();
+    console.log("User is logged out");
   }
 
   createScooter(station){
     //throw new error if station does not exist.
-    if(station != this.station){
+    if(!this.stations[station]){
       throw new Error("No such station error");
     }
-    
     //Create new scooter, add it to station list and set its station property
+    const scooter = new Scooter(station);//new instance of scooter & station as parameter. 
+    this.stations[station].push(scooter);
     console.log("Created new scooter");
     return scooter;
      
   }
 
   dockScooter(scooter, station){
-    //add the scooter to the stations scooter list and dock it
-    console.log("Scooter is docked");
     //throw new error if station does not exist
-    if(this.station!==station){
+    if(!this.station[station]){
       throw new Error("no such station")
     }
     //throw error if scooter is already there.
-    else if(this.serial ===serial && this.station ===station){
+    else if(this.stations[station].includes(scooter)){//use includes to verify that the scooter is part of the list. 
       throw new Error("Scooter already at station");
     } 
+    scooter.dock(station);//dock method using scooter class
+    this.station[station].push(scooter);
+    //add the scooter to the stations scooter list and dock it
+    console.log("Scooter is docked");
   }
 
   rentScooter(scooter, user){
+    //if scooter is already rented throw the error "scooter already rented"
+    if(!this.stations[station].includes(scooter)){
+      throw new Error("Scooter already rented");
+    }
     //locate the given scooter at one of the stations and remove it from station
     //rent it to user
+    scooter.rent(user);
+    this.stations[station].splice(index, 1);
     console.log("Scooter is rented");
-    //if scooter is already rented throw the error "scooter already rented"
+    
   }
 
   print(){
