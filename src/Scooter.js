@@ -1,4 +1,4 @@
-class Scooter extends User{
+class Scooter{
   // scooter code here
   static nextSerial = 1;
 
@@ -18,7 +18,7 @@ class Scooter extends User{
     }
     this.user = user;//Check out to user
     this.station = null;//remove scooter from station list 
-    this.serial = serial;//by serial number.
+    
     
     
   }

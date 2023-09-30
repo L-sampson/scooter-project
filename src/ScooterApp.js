@@ -88,7 +88,26 @@ this.registeredUsers ={};
   print(){
     //Log the list of registered users to the console
     //Log the list of stations and how many sccoter at each station
+    console.log("Regiested Users: ");
+    for(const username in this.registeredUsers){
+      console.log(`Username: ${username}, Age: ${this.registeredUsers[username].age}`)
+    }
+    console.log("List of Stations and Scooters: ");
+    for(const station in this.stations){
+      const scooters = this.stations[station].length;
+      console.log(`${station}: ${scooters} scooters`);
+    }
   }
 }
+
+const app = new ScooterApp();
+app.registerUsers("CoolinT", "1234", 32);
+app.registerUsers("Britt", "5678", 35);
+
+app.createScooter("Inner Harbor");
+app.createScooter("Fells Point");
+app.createScooter("Camden Yards");
+
+app.print();
 
 module.exports = ScooterApp
